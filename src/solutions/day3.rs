@@ -80,7 +80,7 @@ pub fn part1(input: &Engine) -> u32 {
             number
                 .positions
                 .iter()
-                .filter(|digit_pos| {
+                .find(|digit_pos| {
                     input
                         .symbols
                         .iter()
@@ -88,7 +88,6 @@ pub fn part1(input: &Engine) -> u32 {
                         .next()
                         .is_some()
                 })
-                .next()
                 .is_some()
         })
         .fold(0, |acc, num| acc + num.value as u32)
