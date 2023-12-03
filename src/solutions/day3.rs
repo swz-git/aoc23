@@ -84,8 +84,7 @@ pub fn part1(input: &Engine) -> u32 {
                     input
                         .symbols
                         .iter()
-                        .filter(|sym| sym.position.is_close_to(&digit_pos))
-                        .next()
+                        .find(|sym| sym.position.is_close_to(&digit_pos))
                         .is_some()
                 })
                 .is_some()
@@ -106,8 +105,7 @@ pub fn part2(input: &Engine) -> u32 {
                 .filter(|num| {
                     num.positions
                         .iter()
-                        .filter(|num_char_pos| num_char_pos.is_close_to(&sym.position))
-                        .next()
+                        .find(|num_char_pos| num_char_pos.is_close_to(&sym.position))
                         .is_some()
                 })
                 .collect::<Vec<&Number>>();
