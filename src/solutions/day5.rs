@@ -1,13 +1,13 @@
-use std::{error::Error, str::FromStr};
+use std::{error::Error, ops::Range, str::FromStr};
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Almanac {
     seed_info: Vec<u32>,
     maps: Vec<Map>,
 }
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Map(Vec<MapPart>);
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct MapPart(u32, u32, u32);
 
 impl FromStr for Almanac {
@@ -75,30 +75,69 @@ pub fn part1(input: &Almanac) -> u32 {
     lowest
 }
 
-// this takes 2 min lol, TODO: fix
 #[aoc(day5, part2)]
 pub fn part2(input: &Almanac) -> u32 {
     let mut lowest = u32::MAX;
-    for seed_range in input
+
+    let mut ranges: Vec<Range<u32>> = input
         .seed_info
         .chunks(2)
         .map(|chunk| chunk[0]..(chunk[0] + chunk[1]))
-    {
-        for og_seed in seed_range {
-            let mut seed = og_seed;
-            for map in &input.maps {
-                for map_part in &map.0 {
-                    let source_range = map_part.1..(map_part.1 + map_part.2);
-                    if source_range.contains(&seed) {
-                        seed = seed - map_part.1 + map_part.0;
-                        break;
-                    }
-                }
-            }
-            if seed < lowest {
-                lowest = seed
-            }
+        .collect();
+
+    for map in &input.maps {
+        for map_part in &map.0 {
+            let map_part_range = map_part.1..(map_part.1 + map_part.2);
+            ranges = ranges
+                .iter()
+                .flat_map(|range| {
+                    // https://filebin.swz.works/api/file/F55fT1iwaI4 \/
+                    let to_return = if range.end < map_part_range.start
+                        || range.start > map_part_range.end
+                    {
+                        // out of range
+                        vec![range.clone()]
+                    } else if range.start <= map_part_range.start && map_part_range.end <= range.end
+                    {
+                        // [>
+                        vec![
+                            (range.start..map_part.1),
+                            (map_part.0..(map_part.0 + map_part.2)),
+                            ((map_part.1 + map_part.2)..range.end),
+                        ]
+                    } else if map_part_range.start <= range.start && range.end <= map_part_range.end
+                    {
+                        // <]
+                        vec![
+                            ((range.start - map_part.1 + map_part.0)
+                                ..(range.end - map_part.1 + map_part.0)),
+                        ]
+                    } else if map_part_range.start <= range.start && map_part_range.end <= range.end
+                    {
+                        //  \
+                        // //
+                        // \
+                        vec![
+                            ((range.start - map_part.1 + map_part.0)..(map_part.0 + map_part.2)),
+                            ((map_part.1 + map_part.2)..range.end),
+                        ]
+                    } else {
+                        // /
+                        // \\
+                        //  /
+                        vec![
+                            (range.start..map_part.1),
+                            (map_part.0..(range.end - map_part.1 + map_part.0)),
+                        ]
+                    };
+
+                    println!("{:?} became {:?} in stage {:?}", range, to_return, map.0);
+
+                    to_return
+                })
+                .collect();
         }
+        println!()
     }
 
     lowest
