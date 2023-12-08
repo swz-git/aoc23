@@ -44,13 +44,13 @@ pub fn generator(input: &str) -> Engine {
 
         let col = i - line * (total_cols + 1);
 
-        if ch.is_digit(10) {
+        if ch.is_ascii_digit() {
             prev.0 += &ch.to_string();
             prev.1.push(Position(col, line));
             continue;
         }
 
-        if prev.0.len() > 0 {
+        if !prev.0.is_empty() {
             engine.numbers.push(Number {
                 value: prev.0.parse().unwrap(),
                 positions: prev.1,
@@ -77,17 +77,12 @@ pub fn part1(input: &Engine) -> u32 {
         .numbers
         .iter()
         .filter(|number| {
-            number
-                .positions
-                .iter()
-                .find(|digit_pos| {
-                    input
-                        .symbols
-                        .iter()
-                        .find(|sym| sym.position.is_close_to(&digit_pos))
-                        .is_some()
-                })
-                .is_some()
+            number.positions.iter().any(|digit_pos| {
+                input
+                    .symbols
+                    .iter()
+                    .any(|sym| sym.position.is_close_to(digit_pos))
+            })
         })
         .fold(0, |acc, num| acc + num.value as u32)
 }
@@ -105,8 +100,7 @@ pub fn part2(input: &Engine) -> u32 {
                 .filter(|num| {
                     num.positions
                         .iter()
-                        .find(|num_char_pos| num_char_pos.is_close_to(&sym.position))
-                        .is_some()
+                        .any(|num_char_pos| num_char_pos.is_close_to(&sym.position))
                 })
                 .collect::<Vec<&Number>>();
             if connected_numbers.len() != 2 {

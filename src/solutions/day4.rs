@@ -18,17 +18,17 @@ pub fn generator(input: &str) -> Vec<Card> {
             scratched: vec![],
         };
 
-        let mut iter = line.split(" ");
+        let mut iter = line.split(' ');
 
         card.id = iter
-            .find(|maybe_id| maybe_id.ends_with(":"))
+            .find(|maybe_id| maybe_id.ends_with(':'))
             .unwrap()
-            .strip_suffix(":")
+            .strip_suffix(':')
             .unwrap()
             .parse()
             .unwrap();
 
-        while let Some(s) = iter.next() {
+        for s in iter.by_ref() {
             if s == "|" {
                 break;
             }
@@ -37,7 +37,7 @@ pub fn generator(input: &str) -> Vec<Card> {
             }
         }
 
-        while let Some(s) = iter.next() {
+        for s in iter.by_ref() {
             if let Ok(num) = s.parse::<u32>() {
                 card.scratched.push(num);
             }
@@ -68,9 +68,7 @@ pub fn part2(input: &Vec<Card>) -> u32 {
     let mut count_map: HashMap<u32, u32> = HashMap::new();
 
     for card in input {
-        if !count_map.contains_key(&card.id) {
-            count_map.insert(card.id, 1);
-        }
+        count_map.entry(card.id).or_insert(1);
         let winning_count = card
             .scratched
             .iter()

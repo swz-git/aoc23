@@ -1,20 +1,13 @@
-pub struct Race {
-    /// time in ms
-    time: u32,
-    /// record distance in mm
-    record: u32,
-}
-
 #[aoc(day6, part1)]
 pub fn part1(input: &str) -> u32 {
-    let mut split = input.split("\n");
+    let mut split = input.split('\n');
 
     let time_iter = split
         .next()
         .unwrap()
         .strip_prefix("Time:")
         .unwrap()
-        .split(" ")
+        .split(' ')
         .filter_map(|x| x.parse::<u32>().ok());
 
     let record_iter = split
@@ -22,7 +15,7 @@ pub fn part1(input: &str) -> u32 {
         .unwrap()
         .strip_prefix("Distance:")
         .unwrap()
-        .split(" ")
+        .split(' ')
         .filter_map(|x| x.parse::<u32>().ok());
 
     time_iter
@@ -33,19 +26,19 @@ pub fn part1(input: &str) -> u32 {
                 .filter(|x| x > &race.1)
                 .count()
         })
-        .fold(1, |acc, x| acc * x) as u32
+        .product::<usize>() as u32
 }
 
 #[aoc(day6, part2)]
 pub fn part2(input: &str) -> u32 {
-    let mut split = input.split("\n");
+    let mut split = input.split('\n');
 
     let time: u64 = split
         .next()
         .unwrap()
         .strip_prefix("Time:")
         .unwrap()
-        .replace(" ", "")
+        .replace(' ', "")
         .parse()
         .unwrap();
 
@@ -55,7 +48,7 @@ pub fn part2(input: &str) -> u32 {
         .unwrap()
         .strip_prefix("Distance:")
         .unwrap()
-        .replace(" ", "")
+        .replace(' ', "")
         .parse()
         .unwrap();
 

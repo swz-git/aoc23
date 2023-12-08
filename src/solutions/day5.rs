@@ -19,7 +19,7 @@ impl FromStr for Almanac {
             .ok_or("parsing error")?
             .strip_prefix("seeds: ")
             .ok_or("parsing error")?
-            .split(" ")
+            .split(' ')
             .map(|x| x.parse::<u32>().unwrap())
             .collect::<Vec<u32>>();
 
@@ -32,7 +32,7 @@ impl FromStr for Almanac {
             let mut map = Map(vec![]);
 
             for map_str in map_iter {
-                let mut split = map_str.split(" ");
+                let mut split = map_str.split(' ');
                 let map_part = MapPart(
                     split.next().ok_or("parsing error")?.parse()?,
                     split.next().ok_or("parsing error")?.parse()?,

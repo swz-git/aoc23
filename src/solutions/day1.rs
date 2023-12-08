@@ -14,11 +14,9 @@ pub fn part1(input: &str) -> u32 {
 
 #[aoc(day1, part1, faster)]
 pub fn part1_improved(input: &str) -> u32 {
-    let lines: Vec<&str> = input.lines().map(|x| x).collect();
-
     let mut nums: Vec<u32> = vec![];
 
-    for line in lines {
+    for line in input.lines() {
         let mut pair = (0, 0);
         for ch in line.chars() {
             let Some(digit) = ch.to_digit(10) else {
@@ -65,7 +63,7 @@ pub fn part2(input: &str) -> u32 {
                     break;
                 }
                 for str_int in MAP {
-                    if (&line[i..]).starts_with(str_int.0) {
+                    if line[i..].starts_with(str_int.0) {
                         line.remove(i);
                         line.insert_str(i, str_int.1);
                     }
@@ -93,7 +91,7 @@ pub fn part2_improved(input: &str) -> u32 {
                 break;
             }
             for str_int in MAP {
-                if (&line[i..]).starts_with(str_int.0) {
+                if line[i..].starts_with(str_int.0) {
                     line.remove(i);
                     line.insert_str(i, str_int.1);
                 }
