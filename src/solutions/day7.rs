@@ -155,7 +155,7 @@ impl Ord for Hand {
 }
 
 #[aoc(day7, part1)]
-pub fn part1(input: &Vec<(Hand, Bid)>) -> u32 {
+pub fn part1(input: &[(Hand, Bid)]) -> u32 {
     let mut clone = input.to_vec();
     clone.sort_by(|a, b| a.0.cmp(&b.0));
     clone
@@ -166,7 +166,7 @@ pub fn part1(input: &Vec<(Hand, Bid)>) -> u32 {
 }
 
 #[aoc(day7, part2)]
-pub fn part2(input: &Vec<(Hand, Bid)>) -> u32 {
+pub fn part2(input: &[(Hand, Bid)]) -> u32 {
     let mut clone = input.to_vec();
     clone.sort_by(|a, b| a.0.cmp_wildcard(&b.0));
     clone
