@@ -346,7 +346,7 @@ pub fn part2(input: &Matrix<Tile>) -> u32 {
     let mut surrounded_tiles = 0;
 
     for (y, row) in input.0.iter().enumerate() {
-        for (x, val) in row.iter().enumerate() {
+        for (x, _val) in row.iter().enumerate() {
             let is_loop = *is_loop_matrix.get_value(&Point { x, y });
             if is_loop {
                 continue;
