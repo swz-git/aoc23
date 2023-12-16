@@ -1,7 +1,8 @@
+crate::solution!(9, parser generator, part1, part2);
+
 // i need to wrap the vecs for cargo-aoc to be happy
 pub struct SensorOutput(Vec<Vec<i32>>);
 
-#[aoc_generator(day9)]
 pub fn generator(input: &str) -> SensorOutput {
     SensorOutput(
         input
@@ -11,7 +12,6 @@ pub fn generator(input: &str) -> SensorOutput {
     )
 }
 
-#[aoc(day9, part1)]
 pub fn part1(input: &SensorOutput) -> i32 {
     let mut sums = 0;
 
@@ -35,7 +35,6 @@ pub fn part1(input: &SensorOutput) -> i32 {
     sums
 }
 
-#[aoc(day9, part2)]
 pub fn part2(input: &SensorOutput) -> i32 {
     let mut sums = 0;
 

@@ -2,21 +2,22 @@ use std::cmp;
 
 use regex::Regex;
 
+crate::solution!(2, parser generator, part1, part2);
+
 #[derive(Debug)]
-pub struct Subset {
+struct Subset {
     red: u32,
     green: u32,
     blue: u32,
 }
 
 #[derive(Debug)]
-pub struct Game {
+struct Game {
     id: u32,
     subsets: Vec<Subset>,
 }
 
-#[aoc_generator(day2)]
-pub fn generator(input: &str) -> Vec<Game> {
+fn generator(input: &str) -> Vec<Game> {
     let game_id_regex = Regex::new(r"Game (\d+):").unwrap();
     let subset_regex = Regex::new(r"(\d+ (red|green|blue)(, ))*\d+ (red|green|blue)").unwrap();
     let cube_count_regex = Regex::new(r"(\d+) (red|green|blue)").unwrap();
@@ -74,8 +75,7 @@ pub fn generator(input: &str) -> Vec<Game> {
         .collect::<Vec<Game>>()
 }
 
-#[aoc(day2, part1)]
-pub fn part1(input: &Vec<Game>) -> u32 {
+fn part1(input: &Vec<Game>) -> u32 {
     let mut sum = 0;
 
     let limits = Subset {
@@ -99,8 +99,7 @@ pub fn part1(input: &Vec<Game>) -> u32 {
     sum
 }
 
-#[aoc(day2, part2)]
-pub fn part2(input: &Vec<Game>) -> u32 {
+fn part2(input: &Vec<Game>) -> u32 {
     let mut total_power = 0;
 
     for game in input {

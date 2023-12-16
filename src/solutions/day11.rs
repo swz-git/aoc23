@@ -1,3 +1,5 @@
+crate::solution!(11, parser generator, part1, part2);
+
 #[derive(Debug, Clone)]
 pub struct Matrix<T>(Vec<Vec<T>>);
 
@@ -7,7 +9,6 @@ struct Point {
     y: usize,
 }
 
-#[aoc_generator(day11)]
 pub fn generator(input: &str) -> Matrix<bool> {
     // true is a # which means a galaxy, false is empty space
     Matrix(
@@ -32,7 +33,6 @@ pub fn generator(input: &str) -> Matrix<bool> {
 //     }
 // }
 
-#[aoc(day11, part1)]
 pub fn part1(input: &Matrix<bool>) -> u32 {
     let mut empty_rows = vec![];
     for (y, row) in input.0.iter().enumerate() {
@@ -109,7 +109,6 @@ pub fn part1(input: &Matrix<bool>) -> u32 {
 
 // 1301710448 too low
 // 426503472752 also too low
-#[aoc(day11, part2)]
 pub fn part2(input: &Matrix<bool>) -> u64 {
     let mut empty_rows = vec![];
     for (y, row) in input.0.iter().enumerate() {

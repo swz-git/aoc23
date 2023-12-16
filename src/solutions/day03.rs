@@ -1,3 +1,5 @@
+crate::solution!(3, parser generator, part1, part2);
+
 #[derive(Debug)]
 pub struct Position(usize, usize);
 
@@ -25,7 +27,6 @@ pub struct Engine {
     symbols: Vec<Symbol>,
 }
 
-#[aoc_generator(day3)]
 pub fn generator(input: &str) -> Engine {
     let mut engine = Engine {
         numbers: vec![],
@@ -71,7 +72,6 @@ pub fn generator(input: &str) -> Engine {
 
 // I have no regrets to the code below
 
-#[aoc(day3, part1)]
 pub fn part1(input: &Engine) -> u32 {
     input
         .numbers
@@ -87,7 +87,6 @@ pub fn part1(input: &Engine) -> u32 {
         .fold(0, |acc, num| acc + num.value as u32)
 }
 
-#[aoc(day3, part2)]
 pub fn part2(input: &Engine) -> u32 {
     input
         .symbols

@@ -1,4 +1,5 @@
-#[aoc(day6, part1)]
+crate::solution!(6, part1, part2);
+
 pub fn part1(input: &str) -> u32 {
     let mut split = input.split('\n');
 
@@ -29,7 +30,6 @@ pub fn part1(input: &str) -> u32 {
         .product::<usize>() as u32
 }
 
-#[aoc(day6, part2)]
 pub fn part2(input: &str) -> u32 {
     let mut split = input.split('\n');
 

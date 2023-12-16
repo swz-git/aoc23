@@ -1,5 +1,7 @@
 use std::collections::HashMap;
 
+crate::solution!(4, parser generator, part1, part2);
+
 #[derive(Debug)]
 pub struct Card {
     id: u32,
@@ -7,7 +9,6 @@ pub struct Card {
     scratched: Vec<u32>,
 }
 
-#[aoc_generator(day4)]
 pub fn generator(input: &str) -> Vec<Card> {
     let mut cards = vec![];
 
@@ -49,7 +50,6 @@ pub fn generator(input: &str) -> Vec<Card> {
     cards
 }
 
-#[aoc(day4, part1)]
 pub fn part1(input: &Vec<Card>) -> u32 {
     let mut sum = 0;
     for card in input {
@@ -63,7 +63,6 @@ pub fn part1(input: &Vec<Card>) -> u32 {
     sum
 }
 
-#[aoc(day4, part2)]
 pub fn part2(input: &Vec<Card>) -> u32 {
     let mut count_map: HashMap<u32, u32> = HashMap::new();
 

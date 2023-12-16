@@ -1,16 +1,19 @@
 use std::collections::HashMap;
 
+crate::solution!(8, parser generator, part1, part2);
+
+#[derive(Debug)]
 enum Direction {
     Left,
     Right,
 }
 
+#[derive(Debug)]
 pub struct Map {
     directions: Vec<Direction>,
     map: HashMap<String, (String, String)>,
 }
 
-#[aoc_generator(day8)]
 pub fn generator(input: &str) -> Map {
     let mut lines_iter = input.lines();
     let directions = lines_iter
@@ -41,7 +44,6 @@ pub fn generator(input: &str) -> Map {
     Map { directions, map }
 }
 
-#[aoc(day8, part1)]
 pub fn part1(input: &Map) -> u32 {
     let mut current_address = "AAA";
     let mut steps = 0;
@@ -84,7 +86,6 @@ fn lcm_of_vector(numbers: &Vec<usize>) -> usize {
     result
 }
 
-#[aoc(day8, part2)]
 pub fn part2(input: &Map) -> usize {
     let mut starting_nodes: Vec<String> = input
         .map

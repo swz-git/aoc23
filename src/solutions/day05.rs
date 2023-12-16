@@ -1,5 +1,7 @@
 use std::{error::Error, str::FromStr};
 
+crate::solution!(5, parser generator, part1, part2);
+
 #[derive(Debug)]
 pub struct Almanac {
     seed_info: Vec<u32>,
@@ -48,12 +50,10 @@ impl FromStr for Almanac {
     }
 }
 
-#[aoc_generator(day5)]
 pub fn generator(input: &str) -> Almanac {
     input.parse().unwrap()
 }
 
-#[aoc(day5, part1)]
 pub fn part1(input: &Almanac) -> u32 {
     let mut lowest = u32::MAX;
     for og_seed in &input.seed_info {
@@ -76,7 +76,6 @@ pub fn part1(input: &Almanac) -> u32 {
 }
 
 // this takes 2 min, see commit 0c27377b610ccb650119737e790a58e92622ba19
-#[aoc(day5, part2)]
 pub fn part2(input: &Almanac) -> u32 {
     let mut lowest = u32::MAX;
     for seed_range in input

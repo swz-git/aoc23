@@ -1,3 +1,5 @@
+crate::solution!(10, parser generator, part1, part2);
+
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub enum Direction {
     North,
@@ -151,7 +153,6 @@ impl Point {
     }
 }
 
-#[aoc_generator(day10)]
 pub fn generator(input: &str) -> Matrix<Tile> {
     Matrix(
         input
@@ -161,7 +162,6 @@ pub fn generator(input: &str) -> Matrix<Tile> {
     )
 }
 
-#[aoc(day10, part1)]
 pub fn part1(input: &Matrix<Tile>) -> u32 {
     let size = Point {
         x: input.0[0].len(),
@@ -251,7 +251,6 @@ pub fn part1(input: &Matrix<Tile>) -> u32 {
         .unwrap() as u32
 }
 
-#[aoc(day10, part2)]
 pub fn part2(input: &Matrix<Tile>) -> u32 {
     let size = Point {
         x: input.0[0].len(),

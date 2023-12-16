@@ -1,11 +1,12 @@
 use std::{cmp::Ordering, collections::HashMap};
 
+crate::solution!(7, parser generator, part1, part2);
+
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub struct Hand([char; 5]);
 #[derive(Debug, Clone)]
 pub struct Bid(u32);
 
-#[aoc_generator(day7)]
 pub fn generator(input: &str) -> Vec<(Hand, Bid)> {
     let mut output = vec![];
 
@@ -154,7 +155,6 @@ impl Ord for Hand {
     }
 }
 
-#[aoc(day7, part1)]
 pub fn part1(input: &[(Hand, Bid)]) -> u32 {
     let mut clone = input.to_vec();
     clone.sort_by(|a, b| a.0.cmp(&b.0));
@@ -165,7 +165,6 @@ pub fn part1(input: &[(Hand, Bid)]) -> u32 {
         .sum()
 }
 
-#[aoc(day7, part2)]
 pub fn part2(input: &[(Hand, Bid)]) -> u32 {
     let mut clone = input.to_vec();
     clone.sort_by(|a, b| a.0.cmp_wildcard(&b.0));

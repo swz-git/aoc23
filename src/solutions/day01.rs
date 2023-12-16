@@ -1,5 +1,6 @@
-#[aoc(day1, part1)]
-pub fn part1(input: &str) -> u32 {
+crate::solution!(1, part1, part1_improved, part2, part2_improved);
+
+fn part1(input: &str) -> u32 {
     input
         .lines()
         .map(|x| x.chars().collect::<Vec<char>>())
@@ -12,8 +13,7 @@ pub fn part1(input: &str) -> u32 {
         .sum()
 }
 
-#[aoc(day1, part1, faster)]
-pub fn part1_improved(input: &str) -> u32 {
+fn part1_improved(input: &str) -> u32 {
     let mut nums: Vec<u32> = vec![];
 
     for line in input.lines() {
@@ -52,8 +52,7 @@ const MAP: &[(&str, &str)] = &[
     ("nine", "9"),
 ];
 
-#[aoc(day1, part2)]
-pub fn part2(input: &str) -> u32 {
+fn part2(input: &str) -> u32 {
     input
         .lines()
         .map(|line: &str| {
@@ -81,8 +80,7 @@ pub fn part2(input: &str) -> u32 {
         .sum()
 }
 
-#[aoc(day1, part2, faster)]
-pub fn part2_improved(input: &str) -> u32 {
+fn part2_improved(input: &str) -> u32 {
     let mut lines: Vec<String> = input.lines().map(|x| x.to_owned()).collect();
 
     lines.iter_mut().for_each(|line| {
